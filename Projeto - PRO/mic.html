@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deluxe Edition</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #121212, #2c2c2c);
+            color: #fff;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        header {
+            background-color: #000;
+            padding: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #f4c430;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #ddd;
+            margin: 10px 0;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .button-group a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #f4c430;
+            color: #000;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button-group a:hover {
+            background-color: #e5b920;
+            transform: scale(1.05);
+        }
+
+        .button-group a:nth-child(1),
+        .button-group a:nth-child(2) {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .cart-container {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: #f4c430;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-container span {
+            margin-left: 10px;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product h2 {
+            font-size: 1.5em;
+            color: #f4c430;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            font-size: 1em;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        .product button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .product button:hover {
+            background-color: #e5b920;
+        }
+
+        .product button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 10px 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #f4c430;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .zoom-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .zoom-buttons button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background-color: #f4c430;
+            color: #000;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .zoom-buttons button:hover {
+            background-color: #e5b920;
+            transform: scale(1.1);
+        }
+
+        .zoom-buttons button:active {
+            transform: scale(0.95);
+        }
+
+        /* Modal do Carrinho */
+        #cartModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        #cartModal h2 {
+            font-size: 1.5em;
+            color: #f4c430;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-item button {
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-item button:hover {
+            background-color: #e5b920;
+        }
+
+        .close-cart {
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .close-cart:hover {
+            background-color: #e5b920;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Deluxe Edition</h1>
+        <p>Carros que brilham para você</p>
+        <div class="button-group">
+            <a href="javascript:void(0);" onclick="showAbout()">Saiba Mais</a>
+            <a href="carousel.html">Ver Galeria</a>
+        </div>
+
+        <!-- Carrinho de compras -->
+        <div class="cart-container" onclick="toggleCart()">
+            🛒 Carrinho
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- Modal do Carrinho -->
+    <div id="cartModal">
+        <h2>Seu Carrinho</h2>
+        <div id="cartItems"></div>
+        <button class="close-cart" onclick="toggleCart()">Fechar Carrinho</button>
+    </div>
+
+    <!-- Container para mostrar o conteúdo "Sobre" -->
+    <div id="about">
+        <h2 class="about-text">Somos a Deluxe Edition</h2>
+        <p>Uma loja de carros exclusivos com designs únicos e inspirados na cultura JDM. Para fãs de carros esportivos, Veloz & Furios e muito mais! Nossos carros são feitos para quem busca qualidade e estilo.</p>
+    </div>
+
+    <main>
+        <div class="products-container">
+            <!-- Produto 1 -->
+            <div class="product">
+                <img src="Fix/imagem/r352.jpg" alt="Bracelete Stranger Things">
+                <h2>Nissan GT-R (R35)</h2>
+                <p>Conhecido popularmente como Godzilla, o Nissan GT-R é uma lenda entre os carros japoneses, sendo atualmente o único automóvel de passeio do país asiático capaz de ultrapassar a barreira dos 500 cv.</p>
+                <button onclick="addToCart('GT-R (R35)', 'Fix/imagem/r352.jpg', 1)">Adicionar ao Carrinho</button>
+            </div>
+
+            <!-- Produto 2 -->
+            <div class="product">
+                <img src="Fix/imagem/R32.jpg" alt="Bracelete de Ouro">
+                <h2>Nissan GT-R (R32)</h2>
+                <p>O Skyline GT-R é uma versão mais desportiva de um grande sucesso da marca, o Nissan Skyline. A versão GT-R possui o motor Nissan RB26DETT, de 6 cilindros em linha Bi-Turbo que gerava 276 HP.</p>
+                <button onclick="addToCart('GT-R (R32)', 'Fix/imagem/R32.jpg', 1)">Adicionar ao Carrinho</button>
+            </div>
+
+            <!-- Novo Produto 1 -->
+            <div class="product">
+                <img src="Fix/imagem/Mc.jpg" alt="Bracelete em Trama">
+                <h2>McLaren 720S</h2>
+                <p>O McLaren 720S Spider é a materialização dessa abordagem. Um supercarro leve e forte que entrega desempenho implacável, com a pura experiência do conversível em um chassi incrível.</p>
+                <button onclick="addToCart('McLaren 720S', 'Fix/imagem/Mc.jpg', 1)">Adicionar ao Carrinho</button>
+            </div>
+
+            <!-- Novo Produto 2 -->
+            <div class="product">
+                <img src="Fix/imagem/P1.jpg" alt="Anel Caveira">
+                <h2>McLaren P1</h2>
+                <p>O McLaren P1 é um supercarro feito pela fabricante inglesa McLaren Automotive. Ele é o tão esperado sucessor do McLaren F1. O estilo do P1 foi influenciado pelo McLaren MP4-12C.</p>
+                <button onclick="addToCart('McLaren P1', 'Fix/imagem/P1.jpg', 1)">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="zoom-buttons">
+        <button onclick="zoomIn()">+</button>
+        <button onclick="zoomOut()">-</button>
+    </div>
+
+    <footer>
+        <p>© 2024 Deluxe Carros Exclusivos. Todos os direitos reservados. <a href="#">Política de Privacidade</a></p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        // Função para adicionar itens ao carrinho
+        function addToCart(productName, productImage, quantity) {
+            cart.push({ productName, productImage, quantity });
+            document.getElementById('cart-count').textContent = cart.length;
+            updateCart();
+        }
+
+        // Função para exibir itens no carrinho
+        function updateCart() {
+            let cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = ''; // Limpa os itens anteriores
+            cart.forEach((item, index) => {
+                let cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <div>
+                        <strong>${item.productName}</strong> - Quantidade: ${item.quantity}
+                    </div>
+                    <button onclick="removeFromCart(${index})">Remover</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        // Função para remover item do carrinho
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            document.getElementById('cart-count').textContent = cart.length;
+            updateCart();
+        }
+
+        // Função para abrir e fechar o modal do carrinho
+        function toggleCart() {
+            let cartModal = document.getElementById('cartModal');
+            if (cartModal.style.display === 'none' || cartModal.style.display === '') {
+                cartModal.style.display = 'block';
+            } else {
+                cartModal.style.display = 'none';
+            }
+        }
+
+        function zoomIn() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + "px";
+        }
+
+        function zoomOut() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize - 1) + "px";
+        }
+
+        // Função para mostrar/ocultar o conteúdo "Sobre a empresa"
+        function showAbout() {
+            var about = document.getElementById('about');
+            var button = document.querySelector('.button-group a');
+            if (about.style.display === 'none' || about.style.display === '') {
+                about.style.display = 'block';
+                button.innerHTML = "Fechar";  // Muda o texto do botão para "Fechar"
+            } else {
+                about.style.display = 'none';
+                button.innerHTML = "Saiba Mais";  // Restaura o texto original
+            }
+        }
+    </script>
+</body>
+
+</html>
