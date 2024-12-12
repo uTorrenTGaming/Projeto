@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria dos Carros</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #121212, #2c2c2c);
+            color: #fff;
+        }
+
+        header {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #f4c430;
+            margin: 0;
+        }
+
+        header a {
+            color: #f4c430;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #f4c430;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: #f4c430;
+            color: #000;
+        }
+
+        .carousel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 50px auto;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel img {
+            width: 800px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .carousel-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-buttons button {
+            padding: 10px 20px;
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-buttons button:hover {
+            background-color: #e5b920;
+        }
+
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 10px 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #f4c430;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Galeria dos Carros</h1>
+        <a href="mic.html">Voltar para a Página Inicial</a>
+    </header>
+
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <!-- Adicionados os links e as imagens corretas -->
+            
+                <img src="Fix/imagem/R35.jpg" alt="Bracelete Stranger Things">
+            </a>
+            
+                <img src="Fix/imagem/R32.jpg" alt="Bracelete de Ouro">
+            </a>
+            
+                <img src="Fix/imagem/Mc.jpg" alt="Bracelete Prata em Trama">
+            </a>
+           
+                <img src="Fix/imagem/P1.jpg" alt="Anel Prata Caveira D&D">
+            </a>
+        </div>
+        <div class="carousel-buttons">
+            <button id="prev">Anterior</button>
+            <button id="next">Próximo</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Deluxe Carros Exclusivos. Todos os direitos reservados. <a href="#">Política de Privacidade</a></p>
+    </footer>
+
+    <script>
+        const carousel = document.getElementById('carousel');
+        const images = carousel.querySelectorAll('img');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const translateX = -currentIndex * images[0].width;
+            carousel.style.transform = `translateX(${translateX}px)`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateCarousel();
+        });
+    </script>
+
+</body>
+
+</html>
