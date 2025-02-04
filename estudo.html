@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Fundo preto */
+            color: #fff; /* Texto branco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #222; /* Fundo escuro para o container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            border: 2px solid #ffd700; /* Borda dourada */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffd700; /* Título dourado */
+        }
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ffd700; /* Bordas douradas */
+            border-radius: 4px;
+            background-color: #333; /* Fundo escuro nos campos */
+            color: #fff; /* Texto branco nos campos */
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #ffd700; /* Cor da borda ao focar */
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffd700; /* Cor dourada do botão */
+            color: #000; /* Texto preto no botão */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #e6c200; /* Dourado mais escuro ao passar o mouse */
+        }
+        .banner {
+            background-color: #333; /* Fundo escuro para o banner */
+            color: #ffd700; /* Texto dourado */
+            text-align: center;
+            padding: 6px;
+            font-size: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ffd700; /* Borda dourada */
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Crie um login de acesso</h2>
+    <form action="/login" method="post">
+        <input type="text" class="input-field" placeholder="Digite o login" name="username" required>
+        <input type="password" class="input-field" placeholder="Digite a Senha" name="password" required>
+        <button type="submit" class="btn">Enviar</button>
+    </form>
+
+    <!-- Banner informativo -->
+    <div class="banner">
+        O login deve conter 3 dígitos com números ímpares, e a senha precisa ter 4 dígitos com números pares.
+    </div>
+</div>
+
+</body>
+</html>
