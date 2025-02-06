@@ -18,50 +18,57 @@
         .login-container {
             background-color: #222; /* Fundo escuro para o container */
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 8px; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            width: 280px; /* Largura reduzida */
             border: 2px solid #f4c430; /* Borda dourada */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centralizando os itens no container */
         }
         h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #f4c430; /* Título dourado */
+            font-size: 18px; /* Tamanho reduzido para o título */
         }
         .input-field {
-            width: 80%;
-            padding: 10px;
-            margin: 10px auto;
-            border: 1px solid #f4c430; /* Bordas douradas */
-            border-radius: 4px;
+            width: 100%; /* Garantindo que o campo ocupe toda a largura */
+            padding: 8px; /* Ajustando o padding para não ficar grande demais */
+            margin-bottom: 12px; /* Menor espaçamento entre os campos */
+            border: 1px solid #f4c430; /* Borda dourada */
+            border-radius: 6px; /* Bordas arredondadas */
             background-color: #333; /* Fundo escuro nos campos */
             color: #fff; /* Texto branco nos campos */
+            font-size: 14px; /* Tamanho de fonte mais discreto */
+            text-align: center; /* Centralizando o texto dentro do campo */
         }
         .input-field:focus {
             outline: none;
-            border-color: #f4c430; /* Cor da borda ao focar */
+            border-color: #ffd700; /* Cor da borda ao focar, mais dourada */
         }
         .btn {
             width: 100%;
-            padding: 10px;
+            padding: 8px; /* Ajustando o padding para o botão ficar com o mesmo tamanho dos campos */
             background-color: #f4c430; /* Cor dourada do botão */
             color: #000; /* Texto preto no botão */
             border: none;
-            border-radius: 4px;
+            border-radius: 6px; /* Bordas arredondadas para o botão */
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px; /* Tamanho de fonte ajustado */
+            margin-top: 12px; /* Adicionando margem superior para espaçamento */
         }
         .btn:hover {
-            background-color: #f4c430; /* Dourado mais escuro ao passar o mouse */
+            background-color: #ffd700; /* Dourado mais claro ao passar o mouse */
         }
         .banner {
             background-color: #333; /* Fundo escuro para o banner */
             color: #ffd700; /* Texto dourado */
             text-align: center;
-            padding: 6px;
-            font-size: 12px;
-            margin-top: 10px;
-            border-radius: 4px;
+            padding: 10px; /* Ajustando o padding do banner */
+            font-size: 12px; /* Tamanho de fonte reduzido */
+            margin-top: 15px; /* Aumentando o espaço acima do banner */
+            border-radius: 6px; /* Bordas arredondadas */
             border: 1px solid #f4c430; /* Borda dourada */
         }
     </style>
@@ -69,8 +76,9 @@
 <body>
 
 <div class="login-container">
+    <h1>teste</h1>
     <h2>Crie um login de acesso</h2>
-    <form action="/login" method="post">
+    <form action="carousel.html" method="get">
         <input type="text" class="input-field" placeholder="Digite o login" name="username" required>
         <input type="password" class="input-field" placeholder="Digite a senha" name="password" required>
         <button type="submit" class="btn">Enviar</button>
