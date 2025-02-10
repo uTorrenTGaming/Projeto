@@ -1,0 +1,11 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://www.w3schools.com/w3images/woods.jpg');
+    background-size: cover; /* Ajusta o tamanho da imagem para cobrir toda a tela */
+    background-position: center center; /* Centraliza a imagem */
+    background-attachment: fixed; /* Deixa a imagem fixa quando o conteúdo rola */
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Adminstraçao</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            border: 2px solid #f4c430;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f4c430;
+            font-size: 18px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #f4c430;
+            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        .btn {
+            width: 100%;
+            padding: 8px;
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        .btn:hover {
+            background-color: #ffd700;
+        }
+        .banner {
+            background-color: #333;
+            color: #ffd700;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            border: 1px solid #302b1e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>≛ login administrador ≛</h2>
+    <form id="loginForm" action="Froog 2 (Igor).html" method="get" onsubmit="return validateLogin()">
+        <!-- Nome de usuário exemplo: Igor Gomes -->
+        <input type="text" class="input-field" placeholder="username adm" name="username" required id="username">
+        <!-- Senha exemplo: Igor123 -->
+        <input type="password" class="input-field" placeholder="senha" name="password" required id="password">
+        <button type="submit" class="btn">► Enviar ◄</button>
+    </form>
+
+    <div class="banner">
+        O login deve conter no minimo 10 dígitos com nome completo do administrador, e a senha precisa ter 12 dígitos com números e caracteres especiais.
+    </div>
+</div>
+
+<script>
+    function validateLogin() {
+        // Pegando os valores dos campos
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        // Verificando se o nome de usuário e a senha são corretos
+        if (username === "Igor Gomes" && password === "Igor123") {
+            return true; // Permite o envio do formulário
+        } else {
+            alert("Nome de usuário ou senha incorretos!"); // Exibe um alerta se os dados estiverem errados
+            return false; // Impede o envio do formulário
+        }
+    }
+</script>
+
+</body>
+</html>
