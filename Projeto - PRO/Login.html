@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000; /* Fundo preto criptografado Igor  */
-            color: #fff; /* Texto branco criptografado Igor  */
+            background-color: #000;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,60 +16,60 @@
             margin: 0;
         }
         .login-container {
-            background-color: #222; /* Fundo escuro para o container criptografado Igor  */
+            background-color: #222;
             padding: 20px;
-            border-radius: 8px; /* Bordas arredondadas criptografado Igor  */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave criptografado Igor  */
-            width: 280px; /* Largura reduzida */
-            border: 2px solid #f4c430; /* Borda dourada criptografado Igor  */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            border: 2px solid #f4c430;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centralizando os itens no container criptografado Igor  */
+            align-items: center;
         }
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #f4c430; /* Título dourado */
-            font-size: 18px; /* Tamanho reduzido para o título criptografado Igor  */
+            color: #f4c430;
+            font-size: 18px;
         }
         .input-field {
-            width: 100%; /* Garantindo que o campo ocupe toda a largura criptografado Igor  */
-            padding: 8px; /* Ajustando o padding para não ficar grande demais criptografado Igor  */
-            margin-bottom: 12px; /* Menor espaçamento entre os campos criptografado Igor  */
-            border: 1px solid #f4c430; /* Borda dourada criptografado Igor  */
-            border-radius: 6px; /* Bordas arredondadas criptografado Igor  */
-            background-color: #333; /* Fundo escuro nos campos criptografado Igor  */
-            color: #fff; /* Texto branco nos campos criptografado Igor  */
-            font-size: 14px; /* Tamanho de fonte mais discreto criptografado Igor  */
-            text-align: center; /* Centralizando o texto dentro do campo criptografado Igor  */
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #f4c430;
+            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
         }
         .input-field:focus {
             outline: none;
-            border-color: #ffd700; /* Cor da borda ao focar, mais dourada criptografado Igor  */
+            border-color: #ffd700;
         }
         .btn {
             width: 100%;
-            padding: 8px; /* Ajustando o padding para o botão ficar com o mesmo tamanho dos campos criptografado Igor  */
-            background-color: #f4c430; /* Cor dourada do botão criptografado Igor  */
-            color: #000; /* Texto preto no botão criptografado Igor  */
+            padding: 8px;
+            background-color: #f4c430;
+            color: #000;
             border: none;
-            border-radius: 6px; /* Bordas arredondadas para o botão criptografado Igor  */
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 14px; /* Tamanho de fonte ajustado criptografado Igor  */
-            margin-top: 12px; /* Adicionando margem superior para espaçamento criptografado Igor  */
+            font-size: 14px;
+            margin-top: 12px;
         }
         .btn:hover {
-            background-color: #ffd700; /* Dourado mais claro ao passar o mouse criptografado Igor  */
+            background-color: #ffd700;
         }
         .banner {
-            background-color: #333; /* Fundo escuro para o banner criptografado Igor  */
-            color: #ffd700; /* Texto dourado criptografado Igor  */
+            background-color: #333;
+            color: #ffd700;
             text-align: center;
-            padding: 10px; /* Ajustando o padding do banner criptografado Igor  */
-            font-size: 12px; /* Tamanho de fonte reduzido criptografado Igor  */
-            margin-top: 15px; /* Aumentando o espaço acima do banner criptografado Igor  */
-            border-radius: 6px; /* Bordas arredondadas  criptografado Igor */
-            border: 1px solid #302b1e; /* Borda dourada criptografado Igor */
+            padding: 10px;
+            font-size: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            border: 1px solid #302b1e;
         }
     </style>
 </head>
@@ -77,18 +77,42 @@
 
 <div class="login-container">
     <h2>≛ login administrador ≛</h2>
-    <form action="Froog 2 (Igor).html" method="get">
-        <input type="text" class="input-field" placeholder= "username adm" name= "username" required>
-        <input type="password" class="input-field" placeholder= "senha" name= "password" required>
-        <button type="submit" class="btn">► Enviar ◄</button>
+    <form id="loginForm">
+        <input type="text" class="input-field" placeholder="username adm" name="username" id="username" required>
+        <input type="password" class="input-field" placeholder="senha" name="password" id="password" required>
+        <button type="button" class="btn" onclick="checkLogin()">► Enviar ◄</button>
     </form>
 
-    <!-- Banner informativo criptografado Igor  -->
-    <div class="banner">
-        O login deve conter no minimo 10 dígitos com nome completo do adminstrador, e a senha precisa ter 12 dígitos com números e caracteres especiais.
+    <div class="banner" id="messageBanner">
+        O login deve conter no mínimo 10 dígitos com o nome completo do administrador, e a senha precisa ter 12 dígitos com números e caracteres especiais.
     </div>
 </div>
 
+<script>
+    function checkLogin() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var messageBanner = document.getElementById("messageBanner");
+
+        // Verificando se as credenciais estão corretas
+        if (username === "Igor" && password === "Igor 1223") {
+            // Sucesso no login
+            messageBanner.style.backgroundColor = "#4CAF50"; // Verde de sucesso
+            messageBanner.innerHTML = "Login bem-sucedido!";
+            messageBanner.style.color = "#fff";
+            
+            // Redireciona para a página desejada após 1 segundo
+            setTimeout(function() {
+                window.location.href = "Froog 2 (Igor).html"; // Altere o caminho para a sua página de destino
+            }, 1000); // 1 segundo de espera antes do redirecionamento
+        } else {
+            // Falha no login
+            messageBanner.style.backgroundColor = "#f44336"; // Vermelho de erro
+            messageBanner.innerHTML = "Usuário ou senha incorretos.";
+            messageBanner.style.color = "#fff";
+        }
+    }
+</script>
+
 </body>
-<!--Pagina criada no intuito de melhora na performace como aprendizado, aula de Barbara Proz-->
 </html>
