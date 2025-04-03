@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            border: 2px solid #f4c430;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f4c430;
+            font-size: 18px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #f4c430;
+            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        .btn {
+            width: 100%;
+            padding: 8px;
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        .btn:hover {
+            background-color: #ffd700;
+        }
+        .banner {
+            background-color: #333;
+            color: #ffd700;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            border: 1px solid #302b1e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" class="input-field" placeholder="email" name="username" id="email" required>
+        <input type="password" class="input-field" placeholder="senha" name="password" id="senha" required>
+        <button type="button" class="btn" onclick="login()">Login</button>
+        <button type="button" class="btn" onclick="cadastrar()">Cadastrar</button>
+    </form>
+
+    <p id="mensagem">Mensagem...</p>
+
+    <div class="banner" id="mensagem">
+        O email deve conter no minimo 6 caracteres, e a senha no minimo 8 caracteres.
+    </div>
+</div>
+
+ <script>
+        const supabase = window.supabase.createClient(
+         "https://ydqtybwlvfzablwdmdlm.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXR5YndsdmZ6YWJsd2RtZGxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI5OTEzNDYsImV4cCI6MjA1ODU2NzM0Nn0.UbmvSM1hIXdg9RxvB9ByM7RnygXTNglDaHjzBYUuOTs"
+         );
+
+        async function login() {
+            console.log("Tentando fazer login...");
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+            
+            if (!email || !senha) {
+                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+                return;
+            }
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+
+            if (error) {
+                document.getElementById("mensagem").innerText = "Erro: " + error.message;
+            } else {
+                document.getElementById("mensagem").innerText = "Login realizado com sucesso!";
+                localStorage.setItem("usuarioEmail", email);
+                setTimeout(() => {
+                    window.location.href = "Home.html";
+                }, 2000);
+            }
+        }
+
+        async function cadastrar() {
+            console.log("Tentando cadastrar...");
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+
+            if (!email || !senha) {
+                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+                return;
+            }
+
+            const { data, error } = await supabase.auth.signUp({ email, password: senha });
+
+            if (error) {
+                document.getElementById("mensagem").innerText = "Erro: " + error.message;
+            } else {
+                document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+            }
+        }
+
+    
+    //  function checkLogin() {
+    //     var username = document.getElementById("username").value;
+    //     var password = document.getElementById("password").value;
+    //     var messageBanner = document.getElementById("messageBanner");
+
+    //     // Verificando se as credenciais estão corretas
+    //     if (username === "Igor" && password === "Igor 1223") {
+    //         // Sucesso no login
+    //         messageBanner.style.backgroundColor = "#4CAF50"; // Verde de sucesso
+    //         messageBanner.innerHTML = "Login bem-sucedido!";
+    //         messageBanner.style.color = "#fff";
+            
+    //         // Redireciona para a página desejada após 1 segundo
+    //         setTimeout(function() {
+    //             window.location.href = "Froog 2 (Igor).html"; // Altere o caminho para a sua página de destino
+    //         }, 1000); // 1 segundo de espera antes do redirecionamento
+    //     } else {
+    //         // Falha no login
+    //         messageBanner.style.backgroundColor = "#f44336"; // Vermelho de erro
+    //         messageBanner.innerHTML = "Usuário ou senha incorretos.";
+    //         messageBanner.style.color = "#fff";
+    //     }
+    // }
+ </script>
+
+</body>
+</html>
