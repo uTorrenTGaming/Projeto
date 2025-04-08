@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Vídeo de fundo (carro) */
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Mantém a cobertura total do fundo */
+            transform: translate(-50%, -50%); /* Centraliza o vídeo */
+            z-index: -1; /* Manter o vídeo atrás do formulário */
+        }
+
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transform: translateY(0);
+            opacity: 0;
+            animation: slideUp 1s forwards ease-out;
+        }
+
+        h2 {
+            color: #f4c430;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #f4c430;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .input-field:focus {
+            border-color: #ffd700;
+            background-color: #444;
+            outline: none;
+            transform: scale(1.05);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #f4c430;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            background-color: #f4a500;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            color: #ffd700;
+            font-size: 14px;
+            animation: fadeInMessage 2s ease-in-out;
+        }
+
+        .banner {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffd700;
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: none;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInMessage {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Vídeo de fundo (carro em movimento) -->
+<video autoplay muted loop>
+    <source src="https://videos.pexels.com/video-files/5309381/5309381-hd_1920_1080_25fps.mp4" type="video/mp4">
+    Seu navegador não suporta a tag de vídeo.
+</video>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" class="input-field" placeholder="Email" name="username" id="email" required>
+        <input type="password" class="input-field" placeholder="Senha" name="password" id="senha" required>
+        <button type="button" class="btn" onclick="login()">Login</button>
+        <button type="button" class="btn" onclick="cadastrar()">Cadastrar</button>
+    </form>
+
+    <p id="mensagem"></p>
+
+    <div class="banner" id="mensagem-banner">
+        O email deve conter no mínimo 6 caracteres, e a senha no mínimo 8 caracteres.
+    </div>
+</div>
+
+<script>
+    const supabase = window.supabase.createClient(
+        "https://ydqtybwlvfzablwdmdlm.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXR5YndsdmZ6YWJsd2RtZGxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI5OTEzNDYsImV4cCI6MjA1ODU2NzM0Nn0.UbmvSM1hIXdg9RxvB9ByM7RnygXTNglDaHjzBYUuOTs"
+    );
+
+    async function login() {
+        console.log("Tentando fazer login...");
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+        
+        if (!email || !senha) {
+            document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+
+        if (error) {
+            document.getElementById("mensagem").innerText = "Erro: " + error.message;
+        } else {
+            document.getElementById("mensagem").innerText = "Login realizado com sucesso!";
+            localStorage.setItem("usuarioEmail", email);
+            setTimeout(() => {
+                window.location.href = "Home.html";
+            }, 2000);
+        }
+    }
+
+    async function cadastrar() {
+        console.log("Tentando cadastrar...");
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+
+        if (!email || !senha) {
+            document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signUp({ email, password: senha });
+
+        if (error) {
+            document.getElementById("mensagem").innerText = "Erro: " + error.message;
+        } else {
+            document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+        }
+    }
+</script>
+
+</body>
+</html>
